@@ -92,7 +92,7 @@ export default function SummaryView({
                   <Input
                     value={displayName}
                     onChange={e => setDisplayName(e.target.value)}
-                    placeholder="e.g. Chun Hao"
+                    placeholder="e.g. nab"
                   />
                 </div>
 

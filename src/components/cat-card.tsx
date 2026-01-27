@@ -122,7 +122,7 @@ export default function CatCard({ src, onSwiped, className, ...props }: CatCardP
           }}
         >
           <img
-            src="/logo.png"
+            src="./logo.png"
             alt="love"
             className="heart-logo"
           />
