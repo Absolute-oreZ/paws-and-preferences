@@ -178,14 +178,6 @@
   @apply absolute inset-0 overflow-hidden rounded-xl bg-slate-900 shadow-xl select-none touch-none;
   transition: box-shadow 0.2s ease-out;
 }
-
- .badge-like {
-    @apply absolute left-4 top-4 rounded-full border-2 border-green-500/80 px-2 py-1 text-xs font-bold text-green-400/90 backdrop-blur;
- }
-
- .badge-nope {
-    @apply absolute right-4 top-4 rounded-full border-2 border-red-500/80 px-2 py-1 text-xs font-bold text-red-400/90 backdrop-blur;
- }
  
  .actions {
     @apply grid grid-flow-col justify-center gap-4 pt-2;

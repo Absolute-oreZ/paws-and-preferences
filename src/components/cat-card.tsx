@@ -107,10 +107,6 @@ export default function CatCard({ src, onSwiped, className, ...props }: CatCardP
       {...props}
     >
       <img src={src} alt="cute cat" className="h-full w-full object-cover" crossOrigin="anonymous" />
-      <div className="pointer-events-none">
-        <div data-like className="badge-like opacity-0">LIKE</div>
-        <div data-nope className="badge-nope opacity-0">NOPE</div>
-      </div>
 
       {hearts.map(heart => (
         <div
