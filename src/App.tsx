@@ -73,7 +73,7 @@ export default function App() {
       <Header isSummary={isSummary} />
 
       {!isSummary && (
-        <CatStack count={16} onFinish={onFinish} />
+        <CatStack count={12} onFinish={onFinish} />
       )}
 
       {isSummary && (
@@ -91,7 +91,7 @@ export default function App() {
 
       <div className="py-3 text-center text-xs text-secondary-foreground">
         <span>Images from&nbsp;</span>
-        <a href='https://cataas.com'>
+        <a href='https://cataas.com' target='_blank'>
           https://cataas.com
         </a>
       </div>

@@ -4,6 +4,10 @@ A delightful Tinder-style cat swiping app built with React and TypeScript. Swipe
 
 ![Paws & Preferences](https://img.shields.io/badge/React-18.x-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38bdf8)
 
+## 🎬 Live Demo
+
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=flat&logo=github)](https://absolute-orez.github.io/paws-and-preferences/)
+
 ## ✨ Features
 
 ### 🎯 Core Functionality
