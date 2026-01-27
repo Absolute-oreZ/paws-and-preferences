@@ -13,25 +13,64 @@ export function useCatStack(count: number) {
     let cancelled = false
 
     async function load() {
-      const ids = await Promise.all(
-        Array.from({ length: count }).map(async () => {
-          const res = await fetch('https://cataas.com/cat?json=true')
-          const data = await res.json()
-          return data.id
-        })
-      )
+      try {
+        const initialIds = await Promise.all(
+          Array.from({ length: Math.min(3, count) }).map(async () => {
+            const res = await fetch('https://cataas.com/cat?json=true')
+            const data = await res.json()
+            return data.id
+          })
+        )
 
-      const items = await Promise.all(
-        ids.map(async id => {
-          const imgRes = await fetch(`https://cataas.com/cat/${id}`)
-          const blob = await imgRes.blob()
-          return { id, url: URL.createObjectURL(blob) }
-        })
-      )
+        if (cancelled) return
 
-      if (cancelled) return
-      setStack(items)
-      setLoading(false)
+        const initialItems = await Promise.all(
+          initialIds.map(async id => {
+            const imgRes = await fetch(`https://cataas.com/cat/${id}`)
+            const blob = await imgRes.blob()
+            return { id, url: URL.createObjectURL(blob) }
+          })
+        )
+
+        if (cancelled) return
+
+        setStack(initialItems)
+        setLoading(false)
+
+        const remainingCount = count - initialIds.length
+        if (remainingCount > 0) {
+          const remainingIds = await Promise.all(
+            Array.from({ length: remainingCount }).map(async () => {
+              const res = await fetch('https://cataas.com/cat?json=true')
+              const data = await res.json()
+              return data.id
+            })
+          )
+
+          if (cancelled) return
+
+          const batchSize = 3
+          for (let i = 0; i < remainingIds.length; i += batchSize) {
+            if (cancelled) break
+
+            const batchIds = remainingIds.slice(i, i + batchSize)
+            const batchItems = await Promise.all(
+              batchIds.map(async id => {
+                const imgRes = await fetch(`https://cataas.com/cat/${id}`)
+                const blob = await imgRes.blob()
+                return { id, url: URL.createObjectURL(blob) }
+              })
+            )
+
+            if (cancelled) break
+
+            setStack(prev => [...batchItems, ...prev])
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load cats:', error)
+        if (!cancelled) setLoading(false)
+      }
     }
 
     load()
