@@ -25,7 +25,6 @@ A delightful Tinder-style cat swiping app built with React and TypeScript. Swipe
 
 ### 🎨 UI/UX Features
 - Responsive design - works on mobile, tablet, and desktop
-- Dark mode support
 - Loading states with rotating cat-themed messages
 - Summary view with grid layout of liked cats
 - Share functionality with custom display names
@@ -192,7 +191,7 @@ The app is fully optimized for mobile devices with:
 ## 🚧 Future Enhancements
 
 - [ ] Undo last swipe
-- [ ] Keyboard shortcuts
+- [ ] Dark mode support
 - [ ] Save favorites to device
 - [ ] Cat fact API integration
 - [ ] PWA support for offline usage

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import CatCard from '@/components/cat-card'
@@ -8,16 +8,26 @@ import RotatingText from '@/components/rotating-text'
 
 export default function CatStack({ count, onFinish }: { count: number; onFinish: (list: string[]) => void }) {
   const { stack, liked, loading, swipe } = useCatStack(count)
-
   const currentIndex = count - stack.length + 1
+  const topCardRef = useRef<{ like: () => void; nope: () => void } | null>(null)
 
   function likeTop() {
-    swipe(true)
+    if (topCardRef.current) topCardRef.current.like()
   }
 
   function nopeTop() {
-    swipe(false)
+    if (topCardRef.current) topCardRef.current.nope()
   }
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (stack.length === 0) return
+      if (e.key === 'ArrowRight') likeTop()
+      if (e.key === 'ArrowLeft') nopeTop()
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [stack])
 
   useEffect(() => {
     if (!loading && stack.length === 0) onFinish(liked)
@@ -50,15 +60,22 @@ export default function CatStack({ count, onFinish }: { count: number; onFinish:
   return (
     <>
       <div className="stack relative">
-        {stack.map((item, idx) => (
-          <Card
-            key={item.url}
-            className="cat-card animate-enter"
-            style={{ zIndex: idx + 1 }}
-          >
-            <CatCard src={item.url} onSwiped={swipe} />
-          </Card>
-        ))}
+        {stack.map((item, idx) => {
+          const isTop = idx === stack.length - 1
+          return (
+            <Card
+              key={item.url}
+              className="cat-card animate-enter"
+              style={{ zIndex: idx + 1 }}
+            >
+              <CatCard
+                src={item.url}
+                onSwiped={swipe}
+                ref={isTop ? topCardRef : null}
+              />
+            </Card>
+          )
+        })}
       </div>
 
       <ProgressDots total={count} current={currentIndex} />
