@@ -1,10 +1,10 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import { ViteSSG } from 'vite-ssg/single-page'
+import { HelmetProvider } from 'react-helmet-async'
 import App from './App.tsx'
+import './index.css'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+export const createApp = ViteSSG(
+  <HelmetProvider>
     <App />
-  </StrictMode>,
+  </HelmetProvider>
 )

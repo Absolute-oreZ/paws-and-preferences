@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://absolute-orez.github.io/paws-and-preferences/sitemap.xml
