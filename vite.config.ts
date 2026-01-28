@@ -12,12 +12,4 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  // @ts-ignore
-  ssgOptions: {
-    script: 'async',
-    formatting: 'minify',
-    crittersOptions: {
-      preload: 'all',
-    },
-  },
 })
